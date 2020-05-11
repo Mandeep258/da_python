@@ -36,7 +36,7 @@ class SinglyLinkedList:
             self.head = node
         self.size+=1
 
-    def insert_at_beginning(self, data):
+    def push(self, data):
         node = Node(data):
         if self.tail is None:
             self.tail = node
@@ -69,6 +69,7 @@ class SinglyLinkedList:
                     self.tail = current.next
                 else:
                     prev.next = current.next
+                self.size-=1
                 return
             prev = current
             current = current.next
@@ -82,3 +83,28 @@ class SinglyLinkedList:
     def clear(self):
         self.tail = None
         self.head = None
+
+
+    def reverse(self):
+        prev = None
+        current = self.tail
+        while current:
+            next_ = current.next
+            current.next = prev
+            prev = current
+            current = next_
+        self.tail = prev
+
+    def reverse_util(self, curr, prev):
+        if curr.next is None:
+            self.head = curr
+            curr.next = prev
+            return
+        next_ = curr.next
+        curr.next = prev
+        self.reverse_util(next,curr)
+
+    def reverse_recursive(self):
+        if self.tail is None:
+            return
+        self.reverse_util(self.tail,None)
